@@ -47,7 +47,7 @@ namespace Numbers.Test
                 moNbrWord.SetToAustralia();
 
             // assert
-            Assert.AreEqual(expected, Service.Helpers.ConvertCurrencyDecimalsToWords(input, moNbrWord).ToUpper());
+            Assert.AreEqual(expected, Service.Helpers.ConvertDecimalsToWords(input, moNbrWord).ToUpper());
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Numbers.Test
                 moNbrWord.SetToAustralia();
 
             // assert
-            Assert.AreEqual(expected, Service.Helpers.ConvertCurrencyDecimalsToWords(input, moNbrWord).ToUpper());
+            Assert.AreEqual(expected, Service.Helpers.ConvertDecimalsToWords(input, moNbrWord).ToUpper());
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Numbers.Test
                 Assert.AreEqual(expected.Tens[i], actual.Tens[i]);
             }
             Assert.AreEqual(expected.Groups.Length, actual.Groups.Length);
-            for (int i = 0; i < expected.Groups.Length - 1; i++)
+            for (int i = 0; i < 11; i++)
             {
                 Assert.AreEqual(expected.Groups[i], actual.Groups[i]);
             }

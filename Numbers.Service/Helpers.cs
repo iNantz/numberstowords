@@ -66,16 +66,16 @@ namespace Numbers.Service
         /// <param name="nbrWords">the definition of number words</param>
         /// <param name="currency">determine if convertion for currency or not</param> 
         /// <returns>the number in words</returns>
-        public static string ConvertCurrencyDecimalsToWords(string nbr, NumberWords nbrWords, bool currency = true)
+        public static string ConvertDecimalsToWords(string nbr, NumberWords nbrWords, bool currency = true)
         {
             if (nbrWords == null)
                 nbrWords = new NumberWords();
 
-            decimal ldWholeNbr = 0;
-            decimal ldDecNbr = 0;
-            decimal ldNbr = 0;
+            double ldWholeNbr = 0;
+            double ldDecNbr = 0;
+            double ldNbr = 0;
 
-            decimal.TryParse(nbr, NumberStyles.Currency, nbrWords.Culture, out ldNbr);
+            double.TryParse(nbr, NumberStyles.Currency, nbrWords.Culture, out ldNbr);
 
             // will always make the number in positive
             if (ldNbr < 0)
@@ -90,24 +90,28 @@ namespace Numbers.Service
             // split number by its decimal separator
             var loNumbers = nbr.Split(new string[] { nbrWords.NumberFormat.CurrencyDecimalSeparator }, StringSplitOptions.None);
 
+            // return empty if no decimal
+            if (loNumbers.Length == 1)
+                return string.Empty;
+
             // get the whole number
-            decimal.TryParse(loNumbers[0].GetDigits(), out ldWholeNbr);
+            double.TryParse(loNumbers[0].GetDigits(), out ldWholeNbr);
 
             // get the decimal
             if (loNumbers.Length > 1)
-                decimal.TryParse(loNumbers[1].GetDigits(), out ldDecNbr);
+                double.TryParse(loNumbers[1].GetDigits(), out ldDecNbr);
+
+            // return empty if 0
+            if( ldDecNbr == 0)
+                return string.Empty;
 
             // back the original currency symbol
             nbrWords.NumberFormat.CurrencySymbol = lsOldCurrencySymbol;
 
-            // return empty if 0
-            if (loNumbers.Length == 1 || ldDecNbr == 0)
-                return string.Empty;
-
             if (currency)
             {
                 // convert the decimal string to money and get only the rounded off cents
-                var loDecimal = decimal.Parse(string.Format(".{0}", loNumbers[1].GetDigits())).ToString("C", nbrWords.Culture).Split(new string[] { nbrWords.NumberFormat.CurrencyDecimalSeparator }, StringSplitOptions.None);             
+                var loDecimal = double.Parse(string.Format(".{0}", loNumbers[1].GetDigits())).ToString("C", nbrWords.Culture).Split(new string[] { nbrWords.NumberFormat.CurrencyDecimalSeparator }, StringSplitOptions.None);             
 
                 // return cents in words
                 return string.Format("{0}{1} {2}{3}",
@@ -164,7 +168,7 @@ namespace Numbers.Service
         /// <returns>the list of numbers in 3 digit</returns>
         private static int[] moGet3DigitGroups(string nbr, NumberWords nbrWords)
         {
-            decimal ldNbr = decimal.Parse(nbr);
+            double ldNbr = double.Parse(nbr);
 
             // will always make the number in positive
             if (ldNbr < 0)
@@ -186,7 +190,7 @@ namespace Numbers.Service
             // back the original currency symbol
             nbrWords.NumberFormat.CurrencySymbol = lsOldCurrencySymbol;
 
-            if (decimal.Parse(loNumbers[0], nbrWords.Culture) == 0)
+            if (double.Parse(loNumbers[0], nbrWords.Culture) == 0)
                 return null;
 
             // get the numbers by group of 3
@@ -194,7 +198,7 @@ namespace Numbers.Service
         }
 
         /// <summary>
-        /// will get only the whole number and group it
+        /// will get only the whole number and group it by specified number
         /// </summary>
         /// <param name="nbrs">numbers to be grouped</param>
         /// <param name="groupby">group by number of character</param>

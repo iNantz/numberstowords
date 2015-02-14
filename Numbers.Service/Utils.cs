@@ -23,11 +23,11 @@ namespace Numbers.Service
         /// <returns>the number in words</returns>
         public void NumberToWords(string number, out string words, bool currency = false)
         {
-            decimal ldNumber;
+            double ldNumber;
             var loNbrWord = new NumberWords();
 
             // check if the number is valid
-            if (!decimal.TryParse(number, NumberStyles.Currency, loNbrWord.Culture, out ldNumber))
+            if (!double.TryParse(number, NumberStyles.Currency, loNbrWord.Culture, out ldNumber))
             {
                 words =  "Invalid Number";
                 return;
@@ -40,7 +40,7 @@ namespace Numbers.Service
             words =  string.Format("{0}{1} {2}",
                                 ldNumber < 0 ? string.Format("{0} ", loNbrWord.Negative.Trim()) : "",
                                 Helpers.ConvertWholeNumbersToWords(number, loNbrWord, currency),
-                                Helpers.ConvertCurrencyDecimalsToWords(number, loNbrWord, currency)).Trim();
+                                Helpers.ConvertDecimalsToWords(number, loNbrWord, currency)).Trim();
         }
 
         #endregion

@@ -49,7 +49,7 @@ namespace Numbers.Test
                 Assert.AreEqual(expected.Tens[i], actual.Tens[i]);
             }
             Assert.AreEqual(expected.Groups.Length, actual.Groups.Length);
-            for (int i = 0; i < expected.Groups.Length - 1; i++)
+            for (int i = 0; i < 11; i++)
             {
                 Assert.AreEqual(expected.Groups[i], actual.Groups[i]);
             }
@@ -100,17 +100,17 @@ namespace Numbers.Test
             }
 
             loNumberWords.Groups = null;
-            Assert.AreEqual(12, loNumberWords.Groups.Length);
+            Assert.AreEqual(73, loNumberWords.Groups.Length);
             for (int i = 0; i < loNumberWords.Groups.Length - 1; i++)
             {
-                Assert.AreEqual(loNumberWords.Groups[i], "N/A");
+                Assert.AreEqual(loNumberWords.Groups[i], string.Format("[{0}]N/A",i));
             }
 
             loNumberWords.Groups = new string[1] { "Hundred" };
             Assert.AreEqual("Hundred", loNumberWords.Groups[0]);
             for (int i = 1; i < loNumberWords.Groups.Length - 1; i++)
             {
-                Assert.AreEqual(loNumberWords.Groups[i], "N/A");
+                Assert.AreEqual(loNumberWords.Groups[i], string.Format("[{0}]N/A", 71 + i));
             }
         }
     }

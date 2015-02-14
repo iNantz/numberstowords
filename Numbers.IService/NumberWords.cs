@@ -12,6 +12,9 @@ namespace Numbers.IService
     /// </summary>
     public partial class NumberWords
     {
+        public const string MAX_DOUBLE_NUMBER = "####################################################################################################################################################################################################################################################################################################################";
+        public const string MAX_DOUBLE_DECIMAL = "####################################################################################################################################################################################################################################################################################################################################";
+
         public NumberWords()
         {
             SetToAustralia();
@@ -137,13 +140,13 @@ namespace Numbers.IService
                 moGroups = value;
 
                 if (moGroups == null)
-                    moGroups = Enumerable.Repeat("N/A", 12).ToArray();
+                    moGroups = Enumerable.Repeat("N/A", 73).Select((s, i) => string.Format("[{0}]{1}",i,s)).ToArray();
 
-                if (moGroups.Length < 12)
+                if (moGroups.Length < 73)
                 {
-                    var liMissing = 12 - moGroups.Length;
+                    var liMissing = 73 - moGroups.Length;
                     var loValue = moGroups.ToList();
-                    loValue.AddRange(Enumerable.Repeat("N/A", liMissing));
+                    loValue.AddRange(Enumerable.Repeat("N/A", liMissing).Select((s, i) => string.Format("[{0}]{1}", liMissing + i, s)));
                     moGroups = loValue.ToArray();
                 }
             }
@@ -151,6 +154,7 @@ namespace Numbers.IService
 
         /// <summary>
         /// default all to australian culture info
+        /// http://en.wikipedia.org/wiki/Names_of_large_numbers
         /// </summary>
         public void SetToAustralia ()
         {
@@ -164,7 +168,10 @@ namespace Numbers.IService
                 "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
             Tens = new string[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
             Groups = new string[] { "Hundred", "Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion",
-                "Sextillion", "Septillion", "Octillion", "Nonillion", "Decillion"};
+                "Sextillion", "Septillion", "Octillion", "Nonillion", "Decillion", 
+                "Undecillion", "Duodecillion", "Tredecillion", "Quattuordecillion", 
+                "Quindecillion", "Sexdecillion ", "Septendecillion", "Octodecillion",
+                "Novemdecillion", "Vigintillion", "Centillion"};
         }
     }
 }

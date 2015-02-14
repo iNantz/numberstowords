@@ -80,7 +80,6 @@
             this.chkCurrency.TabIndex = 4;
             this.chkCurrency.Text = "Currency";
             this.chkCurrency.UseVisualStyleBackColor = true;
-            this.chkCurrency.Visible = false;
             this.chkCurrency.CheckedChanged += new System.EventHandler(this.chkCurrency_CheckedChanged);
             // 
             // frmMyCheque
@@ -97,7 +96,7 @@
             this.MaximumSize = new System.Drawing.Size(434, 239);
             this.MinimizeBox = false;
             this.Name = "frmMyCheque";
-            this.Text = "Cheque Writing";
+            this.Text = "Numbers To Words";
             this.ResumeLayout(false);
             this.PerformLayout();
 
