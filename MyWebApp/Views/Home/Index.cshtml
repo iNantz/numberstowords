@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Number To Words";
+}
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-center">
+                        <span>Numbers To Words</span>
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input id="txtInput" type="text" class="form-control" placeholder="Input numbers" data-weburl="@Html.Raw(Url.Content("~/api/numbertowords"))">
+                            <span class="input-group-btn">
+                                <button id="btnConvert" class="btn btn-default" title="Convert" type="button"><span class="glyphicon glyphicon-send"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <input type="checkbox" checked id="chkCurrency" class="checkbox-inline" /><label for="chkCurrency">Currency</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="pnlAnswer" class="col-md-12">
+                        <div class="panel  panel-default">
+                            <div class="panel-body">
+                                <strong>Answer:</strong>
+                                <div class="col-md-12 uppercase" id="divAnswer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
