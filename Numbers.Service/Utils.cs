@@ -24,7 +24,8 @@ namespace Numbers.Service
         public void NumberToWords(string number, out string words, bool currency = false)
         {
             double ldNumber;
-            var loNbrWord = new NumberWords();
+            var lsConfigFile = ConfigurationManager.AppSettings["jsonfile"] ?? "..\\..\\..\\JSon\\en-US.json";
+            var loNbrWord = Helpers.JSONStringToNumberWords(lsConfigFile) ?? new NumberWords();
 
             // check if the number is valid
             if (!double.TryParse(number, NumberStyles.Currency, loNbrWord.Culture, out ldNumber))

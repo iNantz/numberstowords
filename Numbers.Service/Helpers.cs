@@ -45,7 +45,7 @@ namespace Numbers.Service
             // get the coverted words
             var lo3DigitWords = lo3DigitGroupsWithWord.Where(r => r.Value > 0).Select(r =>
                                                        string.Format("{0} {1}",
-                                                            msConvert3DigitsToWords(r.Value, nbrWords, currency),
+                                                            msConvert3DigitsToWords(r.Value, nbrWords),
                                                             r.Key == nbrWords.Groups[0] ? "" : r.Key));
 
             // set the currency name
@@ -55,7 +55,7 @@ namespace Numbers.Service
                 currencyName = string.Empty;
 
             return string.Format("{0} {1}",
-                lo3DigitWords.Aggregate((r, j) => string.Format("{0} {1}", r, j)).Trim(),
+                lo3DigitWords.Aggregate((r, j) => string.Format("{0}, {1}", r, j)).Trim(),
                 currencyName).Trim();
         }
 
@@ -153,7 +153,7 @@ namespace Numbers.Service
                 }
 
                 // return cents in words
-                return string.Format("{0} {1} {2}",
+                return string.Format("{0}{1} {2}",
                     ldWholeNbr > 0 ? nbrWords.And : "",
                     ConvertWholeNumbersToWords(lsNumber1, nbrWords, false),
                     lsDecimal).Trim();
@@ -230,9 +230,8 @@ namespace Numbers.Service
         /// </summary>
         /// <param name="hundred">the number to be converted</param>
         /// <param name="nbrWords">the definition of number words</param>
-        /// <param name="currency">determine if convertion for currency or not</param>
         /// <returns>the number in words</returns>
-        private static string msConvert3DigitsToWords(int hundred, NumberWords nbrWords, bool currency = true)
+        private static string msConvert3DigitsToWords(int hundred, NumberWords nbrWords)
         {
 
             var liHundreds = hundred / 100;
@@ -243,11 +242,10 @@ namespace Numbers.Service
             if (liHundreds > 0)
                 lsHundred = string.Format("{0} {1}", nbrWords.Ones[liHundreds], nbrWords.Groups[0]);
 
-            return string.Format("{0}{1}{2}",
+            return string.Format("{0} {1}",
                 lsHundred,
-                liHundreds > 0 ? (currency ? nbrWords.And : ", ") : string.Empty,
                 msConvertTensToWords(liTens, nbrWords)
-                );
+                ).Trim();
         }
 
         /// <summary>

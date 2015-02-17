@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $("#txtInput").inputmask();
+
     // hide the answer
     $("#pnlAnswer").hide();
 

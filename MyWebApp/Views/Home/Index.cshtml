@@ -1,5 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Number To Words";
+    ViewBag.Title = "Numbers To Words";
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/inputmask-numeric")
 }
 
 <br />
@@ -14,12 +19,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <div class="input-group">
-                            <input id="txtInput" type="text" class="form-control" placeholder="Input numbers" data-weburl="@Html.Raw(Url.Content("~/api/numbertowords"))">
-                            <span class="input-group-btn">
-                                <button id="btnConvert" class="btn btn-default" title="Convert" type="button"><span class="glyphicon glyphicon-send"></span></button>
-                            </span>
-                        </div>
+                        <input id="txtInput" type="text" class="form-control text-right" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true" data-weburl="@Html.Raw(Url.Content("~/api/numbertowords"))">
                     </div>
                     <div class="col-md-12">
                         <div class="checkbox">
