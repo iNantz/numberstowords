@@ -13,6 +13,8 @@ namespace Numbers.Service
     public static class Extensions
     {
         private static Regex moDigits = new Regex(@"[^\d]");
+        private static string msConfigFile = ConfigurationManager.AppSettings["jsonfile"] ?? "..\\..\\..\\JSon\\en-US.json"; // configuration file for multilingual
+        private static NumberWords moNbrWord = Helpers.JSONStringToNumberWords(msConfigFile) ?? new NumberWords();
 
         /// <summary>
         /// Get the all the digits
@@ -35,13 +37,10 @@ namespace Numbers.Service
             if (string.IsNullOrEmpty(number))
                 return number;
 
-            double ldNumber;
-            // configuration file for multilingual
-            var lsConfigFile = ConfigurationManager.AppSettings["jsonfile"] ?? "..\\..\\..\\JSon\\en-US.json";
-            var loNbrWord = Helpers.JSONStringToNumberWords(lsConfigFile) ?? new NumberWords();
+            double ldNumber;            
 
             // check if the number is valid
-            if (!double.TryParse(number, NumberStyles.Currency, loNbrWord.Culture, out ldNumber))
+            if (!double.TryParse(number, NumberStyles.Currency, moNbrWord.Culture, out ldNumber))
                 return "Invalid Number";
 
             if (number.Contains(","))
@@ -49,9 +48,9 @@ namespace Numbers.Service
 
             //  return the converted words
             return string.Format("{0}{1} {2}",
-                                ldNumber < 0 ? string.Format("{0} ", loNbrWord.Negative.Trim()) : "",
-                                Helpers.ConvertWholeNumbersToWords(number, loNbrWord, currency),
-                                Helpers.ConvertDecimalsToWords(number, loNbrWord, currency)).Trim();
+                                ldNumber < 0 ? string.Format("{0} ", moNbrWord.Negative.Trim()) : "",
+                                Helpers.ConvertWholeNumbersToWords(number, moNbrWord, currency),
+                                Helpers.ConvertDecimalsToWords(number, moNbrWord, currency)).Trim();
         }
     }
 }
